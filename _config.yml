@@ -22,7 +22,7 @@ owner:
   google_plus:   
 
 # Background image to be tiled on all pages
-background: bge.jpg
+background:
 
 # Analytics and webmaster tools stuff goes here
 google_analytics:   
