@@ -16,11 +16,11 @@ General Introduction:
 
 Salutations! My name is Paul Kang. I'm currently a student at the Unversity of California, Berkeley Campus, where I pursue my studies in the fields of Music and Computer Science. In addition to my studies, I have earned the bulk of my tuition by working in various fields of education--over the course of the past two years, I have worked for the Korean National Institution for English Education and Development, and ASPIRE, a local education nonprofit organization. 
 
-Skills and Interests
+Skills and Interests:
 ==========
 It was an avid interest in composing and programming music that first led me to pursue computer science. My first experiences with coding came from clumsily assembling macros in popular music editing software such as FruityLoops and AVID. Over time I have grown to appreciate the similarity between these fields. 
 
-I'm very interested in the fields of machine learning and programmable music, especially the points where these the two collide. My skillset is as follows:
+My primary focus is in the fields of machine learning and programmable music, especially the points where these the two collide. My skillset is as follows:
 
  **Languages/Frameworks:**  NeuroPH, JFugue, Java, C++, Python, Ruby, Ruby on Rails.
  
