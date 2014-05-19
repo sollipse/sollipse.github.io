@@ -2,16 +2,18 @@ title:            Paul Kang
 description:      A professional site built using Jekyll and deployed on Github Pages.
 disqus_shortname: 
 #Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              http://sollipse.github.io/
+#url:              http://sollipse.github.io/
+url: http://localhost:4000
 # Owner/author information
+zoom: 10
 owner:
   name:           Paul Hyo-Seong Kang
   avatar:         av.jpg
-  bio:            "Software developer-in-progress; a process one finds hard but fair. Also a person-in-progress, which one finds to be fairly hard."
+  bio:            "Paul Kang is a programmer-in-progress. He is fond of composing, coding and speaking in the third person. PROFICIENT IN: Ruby, Python, Java, Scheme and Snap."
   email:          paulhyokang@gmail.com
   # Social networking links used in footer. Update and remove as you like.
   twitter:        
-  facebook: https://facebook.com/acousticguitarguy
+  facebook: AcousticGuitarGuy
   github:         
   stackexchange:  
   linkedin:       
@@ -33,11 +35,10 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Theme Setup
-    url: /theme-setup
-  - title: External Link
-    url: http://mademistakes.com
-    external: true
+
+#  - title: 
+#    url: 
+#    external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    America/San_Francisco

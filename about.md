@@ -1,33 +1,38 @@
 ---
 layout: page
 permalink: /about/
-title: About the Theme
-tags: [Jekyll, theme, modern, minimal, responsive]
+title: About Me
 image:
-  feature: abstract-5.jpg
-  credit: dargadgetz
-  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
-share: true
+  feature: abstract-10.jpg
+share: false
 ---
 
-They say three times the charm, so here is another free responsive Jekyll theme for you. I've learned a ton since open sourcing my first two themes [on Github](http://github.com/mmistakes), and wanted to try a few new things this time around. If you've used my previous themes most of this should be familiar territory...
 
-## What HPSTR brings to the table:
+General Introduction:
+===========
+<div style="float: left">
+    <img src="/images/cinq.png" title="Moi"/>
+</div> 
 
-* Responsive templates for post, page, and post index `_layouts`. Looks great on mobile, tablet, and desktop devices.
-* Gracefully degrads in older browsers. Compatible with Internet Explorer 8+ and all modern browsers.  
-* Modern and minimal design.
-* Sweet animated menu.
-* Background image support.
-* Readable typography to make your words shine.
-* Support for large images to call out your favorite posts.
-* Comments powered by [Disqus](http://disqus.com) if you choose to enable.
-* Simple and clear permalink structure[^1].
-* [Open Graph](https://developers.facebook.com/docs/opengraph/) and [Twitter Cards](https://dev.twitter.com/docs/cards) support for a better social sharing experience.
-* Simple [custom 404 page]({{ site.url }}/404.html) to get you started.
-* Stylesheets for Pygments and Coderay [syntax highlighting]({{ site.url }}/code-highlighting-post/) to make your code examples look snazzy
-* [Grunt](http://gruntjs.com) build script for easy theme development
+Salutations! My name is Paul Kang. I'm currently a student at the Unversity of California, Berkeley Campus, where I pursue my studies in the fields of Music and Computer Science. In addition to my studies, I have earned the bulk of my tuition by working in various fields of education--over the course of the past two years, I have worked for the Korean National Institution for English Education and Development, and ASPIRE, a local education nonprofit organization. 
 
-<div markdown="0"><a href="{{ site.url }}/theme-setup" class="btn btn-info">Install the Theme</a></div>
+Skills and Interests
+==========
+It was an avid interest in composing and programming music that first led me to pursue computer science. My first experiences with coding came from clumsily assembling macros in popular music editing software such as FruityLoops and AVID. Over time I have grown to appreciate the similarity between these fields. 
+
+I'm very interested in the fields of machine learning and programmable music, especially the points where these the two collide. My skillset is as follows:
+
+ **Languages/Frameworks:**  NeuroPH, JFugue, Java, C++, Python, Ruby, Ruby on Rails.
+ 
+
+Am I a Good Fit with Your Company?
+=========
+
+Communication is my strongest suit. My years of experience teaching children have left me with an excellent grasp of how to deal with adults in the workplace. However, at times, I can get engrossed in a project I happen to like, at the expense of my other responsibilities. 
+
+In my opinion I would fit best in an organization with very clearly stated goals, but few limitations to *how* these goals are met.
+
+
+
 
 [^1]: Example: *domain.com/category-name/post-title*

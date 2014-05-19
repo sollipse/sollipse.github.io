@@ -5,6 +5,10 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 {% include head.html %}
+      <style>
+      h1{text-indent: -10em;}
+      h2{text-indent: -20em;}
+      </style>
 </head>
 
 <body id="post-index" {% if page.image.feature %}class="feature"{% endif %}>
@@ -21,6 +25,7 @@
   {% endif %}
   <div class="header-title">
     <div class="header-title-wrap">
+
       <h1>{{ site.title }}</h1>
       <h2>{{ page.title }}</h2>
     </div><!-- /.header-title-wrap -->
@@ -33,7 +38,7 @@
 
 <div class="footer-wrapper">
   <footer role="contentinfo">
-    {% include footer.html %}
+    Site Created by Paul H. Kang, powered by HPSTR
   </footer>
 </div><!-- /.footer-wrapper -->
 
