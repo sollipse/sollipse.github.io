@@ -8,7 +8,6 @@
       <style>
       h1{text-indent: -10em;}
       h2{text-indent: -20em;}
-      poo{text-indent: -50em;}
       </style>
 </head>
 
@@ -20,11 +19,9 @@
 <div class="entry-header">
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   {% if page.image.feature %}
-    <poo>
     <div class="entry-image">
-      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}" style="margin-top:30px">
+      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}" style="margin-top:1px">
     </div><!-- /.entry-image -->
-  </poo>
   {% endif %}
   <div class="header-title">
     <div class="header-title-wrap">
