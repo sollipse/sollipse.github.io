@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /about/
+permalink: about/
 title: About Me
 image:
   feature: abstract-10.jpg
