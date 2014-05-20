@@ -17,11 +17,12 @@
 
 {% include browser-upgrade.html %}
 {% include navigation.html %}
-<div class="entry-header">
+<div>
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   {% if page.image.feature %}
-    <div class="entry-image">
-      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}" style="margin-top:1px;">
+    <div>
+      <img src="{{ site.url }}/images/{{ page.image.feature }}" class="center" alt="{{ page.title }}" style="width: 100%;
+overflow: hidden;">
     </div><!-- /.entry-image -->
   {% endif %}
   <div class="header-title">
