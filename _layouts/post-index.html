@@ -3,6 +3,9 @@
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+
+
+
 <head>
 {% include head.html %}
       <style>
@@ -15,12 +18,11 @@
 
 {% include browser-upgrade.html %}
 {% include navigation.html %}
-
 <div class="entry-header">
   {% if page.image.credit %}<div class="image-credit">Image source: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
   {% if page.image.feature %}
     <div class="entry-image">
-      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}" style="margin-top:1px">
+      <img src="{{ site.url }}/images/{{ page.image.feature }}" alt="{{ page.title }}" style="margin-top:1px;">
     </div><!-- /.entry-image -->
   {% endif %}
   <div class="header-title">
