@@ -93,6 +93,7 @@ function makeRoughBall(mesh, freqs = [], time) {
   mesh.geometry.normalsNeedUpdate = true;
 }
 function App() {
+  let [animationId, setAnimationId] = useState();
   let [analyzer, setAnalyzer] = useState();
   let [ctx, setCtx] = useState();
   let [freqs, setFreqs] = useState(new Uint8Array(1024));
@@ -101,7 +102,7 @@ function App() {
   let [source, setSource] = useState();
   useEffect(() => {
     let t = document.getElementById("foo");
-    if (t && !analyzer) {
+    if (t && !analyzer && (isPlaying || browser === "Safari")) {
       let context = new ContextClass();
       setCtx(context);
       let anal = context.createAnalyser();
@@ -125,6 +126,7 @@ function App() {
             setFreqs(new Uint8Array(anal.frequencyBinCount));
             setSource(src);
             setLoading(false);
+            source.start();
           })
           .catch((e) => console.log(e));
       } else {
@@ -139,7 +141,11 @@ function App() {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (window.THREE && analyzer && !document.getElementById("fark")) {
+    if (window.THREE && !document.getElementById("fark")) {
+      if (isPlaying && !analyzer) {
+        return;
+      } else {
+      }
       const THREE = window.THREE;
 
       //here comes the webgl
@@ -163,7 +169,10 @@ function App() {
       document.getElementById("App").prepend(renderer.domElement);
       renderer.domElement.id = "fark";
 
-      var icosahedronGeometry = new THREE.IcosahedronGeometry(2, 4);
+      var icosahedronGeometry = new THREE.IcosahedronGeometry(
+        analyzer ? 3 : 9,
+        4
+      );
       var lambertMaterial = new THREE.MeshLambertMaterial({
         color: "red",
         wireframe: true,
@@ -185,9 +194,8 @@ function App() {
 
       scene.add(group);
       renderer.render(scene, camera);
-
       const animate = () => {
-        requestAnimationFrame(animate);
+        setAnimationId(requestAnimationFrame(animate));
         renderer.render(scene, camera);
         group.rotation.y += 0.003;
         if (analyzer) {
@@ -207,7 +215,7 @@ function App() {
 
       animate();
     }
-  }, [window.THREE, analyzer, freqs, isPlaying, ctx]);
+  }, [window.THREE, freqs, isPlaying, ctx, analyzer]);
 
   return (
     <Container className="App" id="App">
@@ -233,6 +241,8 @@ function App() {
             } else {
               document.getElementById("foo").play();
             }
+            document.getElementById("fark").remove();
+            cancelAnimationFrame(animationId);
             setPlaying(true);
           }
         }}
@@ -259,8 +269,8 @@ function App() {
       </Button>
       <NameTitle
         style={{
-          opacity: analyzer ? 1 : 0,
-          transform: `translatey(${analyzer ? 0 : -10}px)`,
+          opacity: !loading ? 1 : 0,
+          transform: `translatey(${!loading ? 0 : -10}px)`,
         }}
       >
         Paul kanG
@@ -271,7 +281,16 @@ function App() {
         </Row>
         <div style={{ height: 30 }} />
         <audio
-          onPlay={() => setPlaying(true)}
+          onPlay={() => {
+            if (window.woopra) {
+              window.woopra.track("play");
+            }
+            if (isPlaying === false) {
+              document.getElementById("fark").remove();
+              cancelAnimationFrame(animationId);
+              setPlaying(true);
+            }
+          }}
           onPause={() => setPlaying(false)}
           onCanPlayThrough={() => {
             if (browser !== "Safari") {
