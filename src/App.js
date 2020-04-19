@@ -6,11 +6,8 @@ import Bowser from "bowser";
 
 let browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
 let ContextClass = window.webkitAudioContext || window.AudioContext;
-let context = new ContextClass();
-let anal = context.createAnalyser();
 
 let start = performance.now();
-let RandomValue = Math.random();
 const Container = styled.div`
   position: absolute;
   background: black;
@@ -97,13 +94,17 @@ function makeRoughBall(mesh, freqs = [], time) {
 }
 function App() {
   let [analyzer, setAnalyzer] = useState();
-  let [freqs, setFreqs] = useState(new Uint8Array(anal.frequencyBinCount));
+  let [ctx, setCtx] = useState();
+  let [freqs, setFreqs] = useState(new Uint8Array(1024));
   let [loading, setLoading] = useState(browser !== "Firefox");
   let [isPlaying, setPlaying] = useState(false);
   let [source, setSource] = useState();
   useEffect(() => {
     let t = document.getElementById("foo");
     if (t && !analyzer) {
+      let context = new ContextClass();
+      setCtx(context);
+      let anal = context.createAnalyser();
       if (browser === "Safari") {
         fetch(
           "https://pk-resume.s3-us-west-2.amazonaws.com/Max+Cooper+-+Resynthesis+Original+Mix+Mesh-www.groovytunes.org.mp3"
@@ -121,6 +122,7 @@ function App() {
             src.connect(anal);
             anal.connect(context.destination);
             setAnalyzer(anal);
+            setFreqs(new Uint8Array(anal.frequencyBinCount));
             setSource(src);
             setLoading(false);
           })
@@ -191,7 +193,7 @@ function App() {
         if (analyzer) {
           let currentTime = 0;
           if (browser === "Safari") {
-            currentTime = context.currentTime;
+            currentTime = ctx.currentTime;
           } else {
             if (document.getElementById("foo"))
               currentTime = document.getElementById("foo").currentTime;
@@ -205,7 +207,7 @@ function App() {
 
       animate();
     }
-  }, [window.THREE, analyzer, freqs, isPlaying, source]);
+  }, [window.THREE, analyzer, freqs, isPlaying, ctx]);
 
   return (
     <Container className="App" id="App">
