@@ -117,11 +117,6 @@ function App() {
         gainNode.gain.value = 100;
         setAnalyzer(anal);
         setFreqs(new Uint8Array(anal.frequencyBinCount));
-        setTimeout(() => {
-          if (browser === "Chrome") {
-            document.getElementById("fee").click();
-          }
-        }, 100);
       }
     }
   }, [isPlaying]);
@@ -183,7 +178,9 @@ function App() {
           makeRoughBall(
             ball,
             freqs,
-            document.getElementById("foo").currentTime
+            document.getElementById("foo")
+              ? document.getElementById("foo").currentTime
+              : 0
           );
         } else if (
           browser === "Safari" &&
@@ -212,7 +209,36 @@ function App() {
           }
         }}
       >
-        {isPlaying ? "pause" : "play"}
+        {isPlaying ? (
+          <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
+            <img
+              style={{
+                marginRight: 10,
+                marginTop: 6,
+                width: 45,
+                height: 45,
+                objectFit: "cover",
+                objectPosition: "left",
+              }}
+              src="http://clipart-library.com/images_k/play-pause-button-transparent/play-pause-button-transparent-13.png"
+            />
+            pause
+          </Row>
+        ) : (
+          <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
+            <img
+              style={{
+                marginRight: 10,
+                marginTop: 6,
+                width: 45,
+                height: 45,
+                objectFit: "cover",
+              }}
+              src="http://clipart-library.com/images_k/play-pause-button-transparent/play-pause-button-transparent-13.png"
+            />
+            play
+          </Row>
+        )}
       </Button>
       <NameTitle
         style={{
