@@ -85,7 +85,7 @@ export default () => {
       <TextContainer>
         <div style={{ height: 60 }}></div>
 
-        <SectionTitle>Who I am</SectionTitle>
+        <SectionTitle>Bio</SectionTitle>
         <Paragraph>
           {!loaded && (
             <div style={{ width: 200, height: 200, float: "left" }} />
