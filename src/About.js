@@ -101,18 +101,19 @@ export default () => {
         </Paragraph>
         <br></br>
         <Paragraph>
-          I worked on the facial recognition technology used by{" "}
+          I helped build the facial recognition technology used by{" "}
           <a href="https://www.thorn.org/about-our-fight-against-sexual-exploitation-of-children/">
             Thorn
           </a>{" "}
-          to fight sex trafficking. I also worked on the document analysis
-          technology used by{" "}
+          to fight sex trafficking. I also worked heavily on the document
+          analysis service used by{" "}
           <a href="https://aws.amazon.com/textract/customers/">
             Change Healthcare
           </a>{" "}
-          to process medical documents for millions of patients and doctors.
-          It's important to me that the things I build are used by the right
-          people, for the right reasons.
+          to process medical documents for millions of patients, as well as by
+          the Washington Post to digitize their news platform. It's important to
+          me that the things I build are used by the right people, for the right
+          reasons.
         </Paragraph>
         <br></br>
         <Paragraph>

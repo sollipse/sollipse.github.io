@@ -106,7 +106,6 @@ function App() {
   let [isPlaying, setPlaying] = useState(false);
   useEffect(() => {
     let t = document.getElementById("foo");
-    let backup = new Audio(URL);
     if (t && !analyzer) {
       let ContextClass = window.webkitAudioContext || window.AudioContext;
       let context = new ContextClass();
@@ -121,6 +120,7 @@ function App() {
         var gainNode = context.createGain();
         gainNode.gain.value = 100;
         setAnalyzer(anal);
+        console.log("set....");
         setFreqs(new Uint8Array(anal.frequencyBinCount));
         setTimeout(() => {
           console.log(browser);
@@ -134,7 +134,7 @@ function App() {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (window.THREE && isPlaying) {
+    if (window.THREE && analyzer && !document.getElementById("fark")) {
       const THREE = window.THREE;
 
       //here comes the webgl
@@ -156,6 +156,7 @@ function App() {
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.getElementById("App").prepend(renderer.domElement);
+      renderer.domElement.id = "fark";
 
       var icosahedronGeometry = new THREE.IcosahedronGeometry(4, 3);
       var lambertMaterial = new THREE.MeshLambertMaterial({
@@ -187,7 +188,11 @@ function App() {
         if (analyzer && freqs.length) {
           analyzer.getByteTimeDomainData(freqs);
           makeRoughBall(ball, freqs, actx.currentTime);
-        } else if (browser === "Safari" && isPlaying) {
+        } else if (
+          browser === "Safari" &&
+          document.getElementById("foo") &&
+          !document.getElementById("foo").paused
+        ) {
           makeRoughBall(ball, [], performance.now() / 1000);
         }
       };
