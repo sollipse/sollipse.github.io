@@ -8,7 +8,6 @@ let browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
 
 let start = performance.now();
 let RandomValue = Math.random();
-let randIndex;
 const Container = styled.div`
   position: absolute;
   background: black;
@@ -69,15 +68,12 @@ const Link = styled.a`
   transition: all 0.3s ease;
 `;
 
-const Canvas = styled.canvas`
-  width: 100%;
-`;
-
 function makeRoughBall(mesh, freqs = [], time) {
-  let randIndex = Math.floor((-0.3 + time) / 3.96);
-  if (time < 8.25) {
+  let randIndex = Math.floor((-0.1 + time) / 3.96);
+  if (time < 8.1) {
     randIndex = RandomValue;
   }
+
   var noise = new SimplexNoise(randIndex);
   mesh.geometry.vertices.forEach(function (vertex, i) {
     let rf = 0.02;
@@ -184,7 +180,11 @@ function App() {
         group.rotation.y += 0.003;
         if (analyzer && freqs.length) {
           analyzer.getByteTimeDomainData(freqs);
-          makeRoughBall(ball, freqs, actx.currentTime);
+          makeRoughBall(
+            ball,
+            freqs,
+            document.getElementById("foo").currentTime
+          );
         } else if (
           browser === "Safari" &&
           document.getElementById("foo") &&
