@@ -220,7 +220,7 @@ function App() {
                 objectFit: "cover",
                 objectPosition: "left",
               }}
-              src="http://clipart-library.com/images_k/play-pause-button-transparent/play-pause-button-transparent-13.png"
+              src="https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
             />
             pause
           </Row>
@@ -234,7 +234,7 @@ function App() {
                 height: 45,
                 objectFit: "cover",
               }}
-              src="http://clipart-library.com/images_k/play-pause-button-transparent/play-pause-button-transparent-13.png"
+              src="https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
             />
             play
           </Row>
