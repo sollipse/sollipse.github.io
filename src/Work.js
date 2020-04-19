@@ -57,7 +57,9 @@ let Content = styled.div`
   line-height: 1.4em;
   position: relative;
   @media only screen and (max-width: 600px) {
-    margin-left: 0;
+    width: calc(100% - 90px);
+    margin-left: 5px;
+    font-size: 17px;
   }
   li {
     margin: 10px 0px;
@@ -102,6 +104,10 @@ const Title = styled.div`
       color: red;
     }
   }
+  @media only screen and (max-width: 600px) {
+    margin-left: 0;
+    font-size: 25px;
+  }
 `;
 
 const Image = styled.img`
@@ -138,7 +144,10 @@ const WorkItem = ({ Head, Description, Gallery, DateString }) => {
       <Content
         style={{
           opacity: percentVisible < 0.3 ? 0 : 1,
-          transform: `translateX(${20 - percentVisible * 20}px)`,
+          transform:
+            window.innerWidth < 600
+              ? ""
+              : `translateX(${20 - percentVisible * 20}px)`,
         }}
       >
         <div style={{ zIndex: 1 }}>
@@ -169,6 +178,13 @@ const BigTitle = styled.h1`
   font-size: 50px;
   text-align: right;
   width: calc(100% - 100px);
+  @media only screen and (max-width: 600px) {
+    margin-left: 0;
+    font-size: 35px;
+    margin-bottom: 60px;
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const CUSTOM_LABELS_GALLERY = [
@@ -186,6 +202,10 @@ const TEXTRACT_GALLERY = [
 ];
 export default () => (
   <SimpleReactLightbox>
+    <a href="#">
+      <Button>{"<"}back</Button>
+    </a>
+    <div style={{ height: 60 }}></div>
     <BigTitle>
       Work Timeline
       <a

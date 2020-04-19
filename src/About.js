@@ -17,6 +17,9 @@ const SectionTitle = styled.h3`
   font-family: Orbitron;
   font-size: 60px;
   color: red;
+  @media only screen and (max-width: 600px) {
+    font-size: 40px;
+  }
 `;
 
 const Paragraph = styled.p`
@@ -27,6 +30,12 @@ const Paragraph = styled.p`
   margin-left: 5px;
   a {
     color: red;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 20px;
+    a {
+      margin: 0 !important;
+    }
   }
 `;
 
@@ -50,12 +59,32 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
+const Button = styled.div`
+  color: white;
+  font-family: Raleway;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 25px;
+  padding: 20px;
+  cursor: pointer;
+  color: red;
+  transition: all 0.3s ease;
+  &:hover {
+    color: white;
+  }
+`;
+
 export default () => {
   let [loaded, setLoaded] = useState(false);
   return (
     <Container>
+      <a href="#">
+        <Button>{"<"}back</Button>
+      </a>
       <TextContainer>
-        {loaded}
+        <div style={{ height: 60 }}></div>
+
         <SectionTitle>Who I am</SectionTitle>
         <Paragraph>
           {!loaded && (

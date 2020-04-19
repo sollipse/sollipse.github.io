@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { styled } from "linaria/react";
 import SimplexNoise from "simplex-noise";
-import logo from "./logo.svg";
 import "./App.css";
-import { analyze } from "web-audio-beat-detector";
+import Bowser from "bowser";
+
+let browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
 
 let start = performance.now();
 let RandomValue = Math.random();
@@ -105,25 +106,26 @@ function App() {
   let [isPlaying, setPlaying] = useState(false);
   useEffect(() => {
     let t = document.getElementById("foo");
-    if (t) {
-      let context = new window.AudioContext();
+    if (t && !analyzer) {
+      let ContextClass = window.webkitAudioContext || window.AudioContext;
+      let context = new ContextClass();
       setActx(context);
-      let buffer = context.createBuffer(
-        3,
-        context.sampleRate / 2,
-        context.sampleRate
-      );
+      console.log(t);
       let source = context.createMediaElementSource(t);
       let anal = context.createAnalyser();
       source.connect(anal);
       anal.connect(context.destination);
+      var gainNode = context.createGain();
+      gainNode.gain.value = 100;
       setAnalyzer(anal);
       setFreqs(new Uint8Array(anal.frequencyBinCount));
       setTimeout(() => {
-        document.getElementById("fee").click();
+        if (!browser === "Safari") {
+          document.getElementById("fee").click();
+        }
       }, 100);
     }
-  }, []);
+  }, [isPlaying]);
 
   useEffect(() => {
     if (window.THREE && analyzer) {
@@ -196,6 +198,10 @@ function App() {
             setPlaying(false);
           } else {
             document.getElementById("foo").play();
+            console.log(
+              document.getElementById("foo"),
+              document.getElementById("foo").paused
+            );
             setPlaying(true);
           }
         }}
@@ -217,9 +223,9 @@ function App() {
       </NameTitle>
       <div style={{ height: 30 }} />
       <audio
+        controls
         loop
         onPause={() => cancelAnimationFrame(animationId)}
-        crossOrigin="anonymous"
         id="foo"
       >
         <source src="https://pk-resume.s3-us-west-2.amazonaws.com/04+-+Supine.mp3"></source>
