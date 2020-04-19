@@ -5,6 +5,9 @@ import "./App.css";
 import Bowser from "bowser";
 
 let browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
+let ContextClass = window.webkitAudioContext || window.AudioContext;
+let context = new ContextClass();
+let anal = context.createAnalyser();
 
 let start = performance.now();
 let RandomValue = Math.random();
@@ -20,6 +23,8 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  audio {
+  }
 `;
 
 const Button = styled.div`
@@ -40,7 +45,7 @@ const Button = styled.div`
 
 const NameTitle = styled.div`
   transition: all 3s ease;
-  transition-delay: 8s;
+  transition-delay: 2s;
   position: absolute;
 `;
 
@@ -69,11 +74,7 @@ const Link = styled.a`
 `;
 
 function makeRoughBall(mesh, freqs = [], time) {
-  let randIndex = Math.floor((-0.1 + time) / 3.96);
-  if (time < 8.1) {
-    randIndex = RandomValue;
-  }
-
+  let randIndex = Math.floor(-0.005 + time / 4.0) + 2;
   var noise = new SimplexNoise(randIndex);
   mesh.geometry.vertices.forEach(function (vertex, i) {
     let rf = 0.02;
@@ -88,7 +89,7 @@ function makeRoughBall(mesh, freqs = [], time) {
           vertex.y + Math.floor(time / 1000) * rf * 8,
           vertex.z + Math.floor(time / 1000) * rf * 9
         ) +
-      (0.5 * (freqs[i % freqs.length] || 0)) / 128;
+      (0.6 * (freqs[i % freqs.length] || 0)) / 128;
     vertex.multiplyScalar(distance);
   });
   mesh.geometry.verticesNeedUpdate = true;
@@ -96,25 +97,39 @@ function makeRoughBall(mesh, freqs = [], time) {
 }
 function App() {
   let [analyzer, setAnalyzer] = useState();
-  let [freqs, setFreqs] = useState([]);
-  let [animationId, setAnimationId] = useState();
-  let [actx, setActx] = useState();
+  let [freqs, setFreqs] = useState(new Uint8Array(anal.frequencyBinCount));
+  let [loading, setLoading] = useState(browser !== "Firefox");
   let [isPlaying, setPlaying] = useState(false);
+  let [source, setSource] = useState();
   useEffect(() => {
     let t = document.getElementById("foo");
     if (t && !analyzer) {
-      let ContextClass = window.webkitAudioContext || window.AudioContext;
-      let context = new ContextClass();
-      setActx(context);
       if (browser === "Safari") {
-        setAnalyzer(1);
+        fetch(
+          "https://pk-resume.s3-us-west-2.amazonaws.com/Max+Cooper+-+Resynthesis+Original+Mix+Mesh-www.groovytunes.org.mp3"
+        )
+          .then((resp) => resp.arrayBuffer())
+          .then(
+            (buf) =>
+              new Promise((res, rej) => {
+                context.decodeAudioData(buf, res, rej);
+              })
+          )
+          .then((buffer) => {
+            let src = context.createBufferSource();
+            src.buffer = buffer;
+            src.connect(anal);
+            anal.connect(context.destination);
+            setAnalyzer(anal);
+            setSource(src);
+            setLoading(false);
+          })
+          .catch((e) => console.log(e));
       } else {
         let source = context.createMediaElementSource(t);
         let anal = context.createAnalyser();
         source.connect(anal);
         anal.connect(context.destination);
-        var gainNode = context.createGain();
-        gainNode.gain.value = 100;
         setAnalyzer(anal);
         setFreqs(new Uint8Array(anal.frequencyBinCount));
       }
@@ -146,7 +161,7 @@ function App() {
       document.getElementById("App").prepend(renderer.domElement);
       renderer.domElement.id = "fark";
 
-      var icosahedronGeometry = new THREE.IcosahedronGeometry(4, 4);
+      var icosahedronGeometry = new THREE.IcosahedronGeometry(2, 4);
       var lambertMaterial = new THREE.MeshLambertMaterial({
         color: "red",
         wireframe: true,
@@ -173,27 +188,24 @@ function App() {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
         group.rotation.y += 0.003;
-        if (analyzer && freqs.length) {
+        if (analyzer) {
+          let currentTime = 0;
+          if (browser === "Safari") {
+            currentTime = context.currentTime;
+          } else {
+            if (document.getElementById("foo"))
+              currentTime = document.getElementById("foo").currentTime;
+          }
+          analyzer.minDecibels = -100;
+          analyzer.maxDecibels = 0;
           analyzer.getByteTimeDomainData(freqs);
-          makeRoughBall(
-            ball,
-            freqs,
-            document.getElementById("foo")
-              ? document.getElementById("foo").currentTime
-              : 0
-          );
-        } else if (
-          browser === "Safari" &&
-          document.getElementById("foo") &&
-          !document.getElementById("foo").paused
-        ) {
-          makeRoughBall(ball, [], performance.now() / 1000);
+          makeRoughBall(ball, freqs, currentTime);
         }
       };
 
       animate();
     }
-  }, [window.THREE, analyzer, freqs, isPlaying]);
+  }, [window.THREE, analyzer, freqs, isPlaying, source]);
 
   return (
     <Container className="App" id="App">
@@ -201,44 +213,47 @@ function App() {
         id="fee"
         onClick={() => {
           if (isPlaying) {
-            document.getElementById("foo").pause();
+            if (browser === "Safari") {
+              if (source.playbackState !== 3) {
+                source.stop(0);
+              }
+            } else {
+              document.getElementById("foo").pause();
+            }
             setPlaying(false);
           } else {
-            document.getElementById("foo").play();
+            if (browser === "Safari") {
+              if (source.playbackState !== 3) {
+                source.start(0);
+              } else {
+                window.location.reload();
+              }
+            } else {
+              document.getElementById("foo").play();
+            }
             setPlaying(true);
           }
         }}
       >
-        {isPlaying ? (
-          <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
-            <img
-              style={{
-                marginRight: 10,
-                marginTop: 6,
-                width: 45,
-                height: 45,
-                objectFit: "cover",
-                objectPosition: "left",
-              }}
-              src="https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
-            />
-            pause
-          </Row>
-        ) : (
-          <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
-            <img
-              style={{
-                marginRight: 10,
-                marginTop: 6,
-                width: 45,
-                height: 45,
-                objectFit: "cover",
-              }}
-              src="https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
-            />
-            play
-          </Row>
-        )}
+        <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
+          <img
+            style={{
+              marginRight: 10,
+              marginTop: 6,
+              width: 45,
+              height: 45,
+              objectFit: "cover",
+            }}
+            src={
+              loading
+                ? "https://media1.giphy.com/media/LsLK01Ko9Kf6M/source.gif"
+                : isPlaying
+                ? "https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
+                : "https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
+            }
+          />
+          {loading ? "loading" : isPlaying ? "pause" : "play"}
+        </Row>
       </Button>
       <NameTitle
         style={{
@@ -252,18 +267,32 @@ function App() {
           <Link href="#/work">work</Link>
           <Link href="#/about">about</Link>
         </Row>
+        <div style={{ height: 30 }} />
+        <audio
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onCanPlayThrough={() => {
+            if (browser !== "Safari") {
+              setLoading(false);
+            }
+          }}
+          crossOrigin="anonymous"
+          loop
+          id="foo"
+          controls={browser !== "Safari"}
+        >
+          <source
+            src={
+              browser === "Safari"
+                ? ""
+                : "https://pk-resume.s3-us-west-2.amazonaws.com/Max+Cooper+-+Resynthesis+Original+Mix+Mesh-www.groovytunes.org.mp3"
+            }
+          ></source>
+        </audio>
       </NameTitle>
-      <div style={{ height: 30 }} />
-      <audio
-        crossOrigin="anonymous"
-        loop
-        onPause={() => cancelAnimationFrame(animationId)}
-        id="foo"
-      >
-        <source src="https://pk-resume.s3-us-west-2.amazonaws.com/04+-+Supine.mp3"></source>
-      </audio>
     </Container>
   );
 }
 
+//
 export default App;
