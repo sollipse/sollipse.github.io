@@ -106,29 +106,35 @@ function App() {
   let [isPlaying, setPlaying] = useState(false);
   useEffect(() => {
     let t = document.getElementById("foo");
+    let backup = new Audio(URL);
     if (t && !analyzer) {
       let ContextClass = window.webkitAudioContext || window.AudioContext;
       let context = new ContextClass();
       setActx(context);
-      console.log(t);
-      let source = context.createMediaElementSource(t);
-      let anal = context.createAnalyser();
-      source.connect(anal);
-      anal.connect(context.destination);
-      var gainNode = context.createGain();
-      gainNode.gain.value = 100;
-      setAnalyzer(anal);
-      setFreqs(new Uint8Array(anal.frequencyBinCount));
-      setTimeout(() => {
-        if (!browser === "Safari") {
-          document.getElementById("fee").click();
-        }
-      }, 100);
+      if (browser === "Safari") {
+        setAnalyzer(1);
+      } else {
+        let source = context.createMediaElementSource(t);
+        let anal = context.createAnalyser();
+        source.connect(anal);
+        anal.connect(context.destination);
+        var gainNode = context.createGain();
+        gainNode.gain.value = 100;
+        setAnalyzer(anal);
+        setFreqs(new Uint8Array(anal.frequencyBinCount));
+        setTimeout(() => {
+          console.log(browser);
+
+          if (browser !== "Safari") {
+            document.getElementById("fee").click();
+          }
+        }, 100);
+      }
     }
   }, [isPlaying]);
 
   useEffect(() => {
-    if (window.THREE && analyzer) {
+    if (window.THREE && isPlaying) {
       const THREE = window.THREE;
 
       //here comes the webgl
@@ -181,12 +187,14 @@ function App() {
         if (analyzer && freqs.length) {
           analyzer.getByteTimeDomainData(freqs);
           makeRoughBall(ball, freqs, actx.currentTime);
+        } else if (browser === "Safari" && isPlaying) {
+          makeRoughBall(ball, [], performance.now() / 1000);
         }
       };
 
       animate();
     }
-  }, [window.THREE, analyzer, freqs]);
+  }, [window.THREE, analyzer, freqs, isPlaying]);
 
   return (
     <Container className="App" id="App">
@@ -198,10 +206,6 @@ function App() {
             setPlaying(false);
           } else {
             document.getElementById("foo").play();
-            console.log(
-              document.getElementById("foo"),
-              document.getElementById("foo").paused
-            );
             setPlaying(true);
           }
         }}
@@ -223,7 +227,7 @@ function App() {
       </NameTitle>
       <div style={{ height: 30 }} />
       <audio
-        controls
+        crossOrigin="anonymous"
         loop
         onPause={() => cancelAnimationFrame(animationId)}
         id="foo"
