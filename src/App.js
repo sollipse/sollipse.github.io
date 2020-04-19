@@ -92,7 +92,7 @@ function makeRoughBall(mesh, freqs = [], time) {
           vertex.y + Math.floor(time / 1000) * rf * 8,
           vertex.z + Math.floor(time / 1000) * rf * 9
         ) +
-      (0.2 * (freqs[i % freqs.length] || 0)) / 128;
+      (0.5 * (freqs[i % freqs.length] || 0)) / 128;
     vertex.multiplyScalar(distance);
   });
   mesh.geometry.verticesNeedUpdate = true;
@@ -120,12 +120,9 @@ function App() {
         var gainNode = context.createGain();
         gainNode.gain.value = 100;
         setAnalyzer(anal);
-        console.log("set....");
         setFreqs(new Uint8Array(anal.frequencyBinCount));
         setTimeout(() => {
-          console.log(browser);
-
-          if (browser !== "Safari") {
+          if (browser === "Chrome") {
             document.getElementById("fee").click();
           }
         }, 100);
@@ -158,7 +155,7 @@ function App() {
       document.getElementById("App").prepend(renderer.domElement);
       renderer.domElement.id = "fark";
 
-      var icosahedronGeometry = new THREE.IcosahedronGeometry(4, 3);
+      var icosahedronGeometry = new THREE.IcosahedronGeometry(4, 4);
       var lambertMaterial = new THREE.MeshLambertMaterial({
         color: "red",
         wireframe: true,
