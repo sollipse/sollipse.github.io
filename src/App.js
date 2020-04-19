@@ -71,22 +71,22 @@ const Link = styled.a`
 `;
 
 function makeRoughBall(mesh, freqs = [], time) {
-  let randIndex = Math.floor(-0.005 + time / 4.0) + 2;
+  let randIndex = Math.max(0, Math.floor(-0.005 + time / 4.0)) + 2;
   var noise = new SimplexNoise(randIndex);
   mesh.geometry.vertices.forEach(function (vertex, i) {
     let rf = 0.02;
-    let time = performance.now() % 100;
+    let ttime = performance.now() % 100;
     vertex.normalize();
     var distance =
       6 +
       (performance.now() - start) / 15000 +
       4 *
         noise.noise3D(
-          vertex.x + Math.floor(time / 1000) * rf * 7,
-          vertex.y + Math.floor(time / 1000) * rf * 8,
-          vertex.z + Math.floor(time / 1000) * rf * 9
+          vertex.x + Math.floor(ttime / 1000) * rf * 7,
+          vertex.y + Math.floor(ttime / 1000) * rf * 8,
+          vertex.z + Math.floor(ttime / 1000) * rf * 9
         ) +
-      (0.6 * (freqs[i % freqs.length] || 0)) / 128;
+      ((time / 200) * (freqs[i % freqs.length] || 0)) / 128;
     vertex.multiplyScalar(distance);
   });
   mesh.geometry.verticesNeedUpdate = true;
@@ -171,7 +171,7 @@ function App() {
 
       var icosahedronGeometry = new THREE.IcosahedronGeometry(
         analyzer ? 3 : 9,
-        4
+        5
       );
       var lambertMaterial = new THREE.MeshLambertMaterial({
         color: "red",
@@ -193,10 +193,8 @@ function App() {
       scene.add(spotLight);
 
       scene.add(group);
-      renderer.render(scene, camera);
       const animate = () => {
         setAnimationId(requestAnimationFrame(animate));
-        renderer.render(scene, camera);
         group.rotation.y += 0.003;
         if (analyzer) {
           let currentTime = 0;
@@ -211,6 +209,7 @@ function App() {
           analyzer.getByteTimeDomainData(freqs);
           makeRoughBall(ball, freqs, currentTime);
         }
+        renderer.render(scene, camera);
       };
 
       animate();
