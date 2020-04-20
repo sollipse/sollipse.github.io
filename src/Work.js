@@ -32,7 +32,7 @@ let Badge = styled.div`
   background: red;
   margin-left: -60px;
   color: white;
-  font-family: Raleway;
+  font-family: Open Sans;
   font-size: 30px;
   border-radius: 5px;
   padding: 5px;
@@ -53,7 +53,7 @@ let Content = styled.div`
   margin-left: 100px;
   max-width: 900px;
   font-size: 25px;
-  font-family: Raleway;
+  font-family: Open Sans;
   line-height: 1.4em;
   position: relative;
   @media only screen and (max-width: 600px) {
@@ -95,7 +95,7 @@ let Content = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: Orbitron;
+  font-family: Oxanium;
   font-size: 35px;
   a {
     color: white;
@@ -120,11 +120,11 @@ const Image = styled.img`
 
 const Button = styled.div`
   color: white;
-  font-family: Raleway;
+  font-family: Open Sans;
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 25px;
+  font-size: 32px;
   padding: 20px;
   cursor: pointer;
   color: red;
@@ -174,7 +174,7 @@ const BigTitle = styled.h1`
   display: flex;
   flex-direction: column;
   color: white;
-  font-family: Orbitron;
+  font-family: Oxanium;
   font-size: 50px;
   text-align: right;
   width: calc(100% - 100px);
@@ -185,6 +185,16 @@ const BigTitle = styled.h1`
     width: 100%;
     text-align: center;
   }
+`;
+
+const Link = styled.a`
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  &:hover {
+    color: red;
+  }
+  transition: 0.3s ease;
 `;
 
 const CUSTOM_LABELS_GALLERY = [
@@ -208,18 +218,12 @@ export default () => (
     <div style={{ height: 60 }}></div>
     <BigTitle>
       Work Timeline
-      <a
+      <Link
         download
-        style={{
-          color: "white",
-          cursor: "pointer",
-          fontSize: 20,
-          fontFamily: "Raleway",
-        }}
         href="https://pk-resume.s3-us-west-2.amazonaws.com/Awesome_CV+(1).pdf"
       >
         download resume
-      </a>
+      </Link>
     </BigTitle>
 
     <Container>

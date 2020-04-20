@@ -11,7 +11,7 @@ let start = performance.now();
 const Container = styled.div`
   position: absolute;
   background: black;
-  font-family: Orbitron;
+  font-family: Oxanium;
   color: white;
   font-size: 60px;
   display: flex;
@@ -26,7 +26,7 @@ const Container = styled.div`
 
 const Button = styled.div`
   color: white;
-  font-family: Raleway;
+  font-family: Open Sans;
   position: absolute;
   top: 0;
   left: 0;
@@ -44,13 +44,15 @@ const NameTitle = styled.div`
   transition: all 3s ease;
   transition-delay: 2s;
   position: absolute;
+  font-size: 70px;
 `;
 
 const Description = styled.div`
-  font-family: Raleway;
+  font-family: Oxanium;
   color: white;
-  font-size: 39px;
-  padding-top: 6px;
+  font-size: 30px;
+  margin-top: -24px;
+  margin-left: -17px;
 `;
 
 const Row = styled.div`
@@ -78,7 +80,7 @@ function makeRoughBall(mesh, freqs = [], time) {
     let ttime = performance.now() % 100;
     vertex.normalize();
     var distance =
-      6 +
+      9 +
       (performance.now() - start) / 15000 +
       4 *
         noise.noise3D(
@@ -169,7 +171,7 @@ function App() {
       renderer.domElement.id = "fark";
 
       var icosahedronGeometry = new THREE.IcosahedronGeometry(
-        analyzer ? 3 : 9,
+        analyzer ? 3 : 10,
         5
       );
       var lambertMaterial = new THREE.MeshLambertMaterial({
@@ -274,13 +276,13 @@ function App() {
           transform: `translatey(${!loading ? 0 : -10}px)`,
         }}
       >
-        Paul kanG
+        paul kang
         <Description>software engineer</Description>
         <Row>
           <Link href="#/work">work</Link>
           <Link href="#/about">about</Link>
         </Row>
-        <div style={{ height: 30 }} />
+        <div style={{ height: 23 }} />
         <audio
           onPlay={() => {
             if (window.woopra) {

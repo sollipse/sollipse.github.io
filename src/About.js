@@ -14,7 +14,7 @@ const TextContainer = styled.div`
 `;
 
 const SectionTitle = styled.h3`
-  font-family: Orbitron;
+  font-family: Oxanium;
   font-size: 60px;
   color: red;
   @media only screen and (max-width: 600px) {
@@ -23,7 +23,7 @@ const SectionTitle = styled.h3`
 `;
 
 const Paragraph = styled.p`
-  font-family: Raleway;
+  font-family: Open Sans;
   line-height: 1.6em;
   font-size: 25px;
   margin-top: -30px;
@@ -61,11 +61,11 @@ const Row = styled.div`
 
 const Button = styled.div`
   color: white;
-  font-family: Raleway;
+  font-family: Open Sans;
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 25px;
+  font-size: 32px;
   padding: 20px;
   cursor: pointer;
   color: red;
@@ -85,7 +85,7 @@ export default () => {
       <TextContainer>
         <div style={{ height: 60 }}></div>
 
-        <SectionTitle>Bio</SectionTitle>
+        <SectionTitle>Biography</SectionTitle>
         <Paragraph>
           {!loaded && (
             <div style={{ width: 200, height: 200, float: "left" }} />
@@ -101,26 +101,40 @@ export default () => {
         </Paragraph>
         <br></br>
         <Paragraph>
-          I helped build the facial recognition technology used by{" "}
+          I helped build{" "}
+          <a href="https://aws.amazon.com/rekognition/">Rekognition</a> -- an AI
+          identity detection service used to{" "}
           <a href="https://www.thorn.org/about-our-fight-against-sexual-exploitation-of-children/">
-            Thorn
+            fight sex traffickers
+          </a>
+          , and keep public platforms free of{" "}
+          <a href="https://www.fastcompany.com/90403658/amazons-ai-is-helping-companies-battle-sleazy-user-generated-content">
+            obscene and violent content.
+          </a>
+        </Paragraph>
+        <br></br>
+
+        <Paragraph>
+          I also contributed patents to{" "}
+          <a href="https://venturebeat.com/2019/05/29/aws-launches-textract-machine-learning-for-text-and-data-extraction/">
+            Textract
           </a>{" "}
-          to fight sex trafficking. I also worked heavily on the document
-          analysis service used by{" "}
+          -- a document parsing AI service used by the US government, as well as
+          companies like{" "}
           <a href="https://aws.amazon.com/textract/customers/">
             Change Healthcare
           </a>{" "}
-          to process medical documents for millions of patients, as well as by
-          the Washington Post to digitize their news platform. It's important to
-          me that the things I build are used by the right people, for the right
-          reasons.
+          and{" "}
+          <a href="https://aws.amazon.com/textract/customers/">
+            the Washington Post
+          </a>
+          . I build tools to be used by the right people, for the right reasons.
         </Paragraph>
         <br></br>
         <Paragraph>
-          <b>The future is coming faster by the day.</b> For those of us with
-          the power to enact change, it is our duty to ensure the march of
-          progress doesn't trample over the rare and precious things that make
-          us human.
+          <b>The future is coming faster by the day.</b> Those of us with the
+          power to enact change have a duty to ensure the march of progress
+          doesn't trample over the rare and precious things that make us human.
         </Paragraph>
         <SectionTitle style={{ color: "white", fontSize: 40 }}>
           Get in touch
@@ -129,13 +143,13 @@ export default () => {
           <Row>
             <div>
               Email:{"    "}
-              <a style={{ marginLeft: 46 }} href="mailto:paulkang@amazon.com">
+              <a style={{ marginLeft: 48 }} href="mailto:paulkang@amazon.com">
                 solipsistic@berkeley.edu
               </a>
             </div>
             <div>
               Github:{" "}
-              <a style={{ marginLeft: 33 }} href="https://github.com/sollipse">
+              <a style={{ marginLeft: 32 }} href="https://github.com/sollipse">
                 sollipse
               </a>
             </div>
