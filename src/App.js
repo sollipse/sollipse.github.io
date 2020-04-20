@@ -126,7 +126,6 @@ function App() {
             setFreqs(new Uint8Array(anal.frequencyBinCount));
             setSource(src);
             setLoading(false);
-            source.start();
           })
           .catch((e) => console.log(e));
       } else {
@@ -254,6 +253,7 @@ function App() {
               width: 45,
               height: 45,
               objectFit: "cover",
+              objectPosition: isPlaying ? "left" : "center",
             }}
             src={
               loading
@@ -263,7 +263,9 @@ function App() {
                 : "https://pk-resume.s3-us-west-2.amazonaws.com/play-pause-button-transparent-13.png"
             }
           />
-          {loading ? "loading" : isPlaying ? "pause" : "play"}
+          <div style={{ opacity: loading ? 0 : 1, transition: "all 1s ease" }}>
+            {loading ? "" : isPlaying ? "pause" : "play"}
+          </div>
         </Row>
       </Button>
       <NameTitle
