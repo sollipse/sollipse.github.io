@@ -5,6 +5,20 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards !important;
+  animation-delay: 2s;
+  @keyframes fadeIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
 `;
 
 const TextContainer = styled.div`

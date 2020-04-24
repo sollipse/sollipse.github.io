@@ -5,6 +5,20 @@ import { useVisible } from "react-hooks-visible";
 const Container = styled.div`
   position: relative;
   margin: 100px;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards !important;
+  animation-delay: 2s;
+  @keyframes fadeIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
   @media only screen and (max-width: 600px) {
     margin: 0;
   }
@@ -178,6 +192,23 @@ const BigTitle = styled.h1`
   font-size: 50px;
   text-align: right;
   width: calc(100% - 100px);
+  opacity: 0;
+  animation: fadeIn 1s ease forwards !important;
+  animation-delay: 2s;
+  @keyframes fadeIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    margin: 0;
+  }
   @media only screen and (max-width: 600px) {
     margin-left: 0;
     font-size: 35px;
