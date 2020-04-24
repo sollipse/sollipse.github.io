@@ -81,7 +81,7 @@ function makeRoughBall(mesh, freqs = [], time) {
     vertex.normalize();
     var distance =
       6 +
-      Math.min((performance.now() - start) / 15000, 10) +
+      (performance.now() - start) / 15000 +
       4 *
         noise.noise3D(
           vertex.x + Math.floor(ttime / 1000) * rf * 7,
