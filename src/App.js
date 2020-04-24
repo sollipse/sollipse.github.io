@@ -80,15 +80,15 @@ function makeRoughBall(mesh, freqs = [], time) {
     let ttime = performance.now() % 100;
     vertex.normalize();
     var distance =
-      6 +
-      (performance.now() - start) / 15000 +
+      8 +
+      (performance.now() - start) / 20000 +
       4 *
         noise.noise3D(
           vertex.x + Math.floor(ttime / 1000) * rf * 7,
           vertex.y + Math.floor(ttime / 1000) * rf * 8,
           vertex.z + Math.floor(ttime / 1000) * rf * 9
         ) +
-      ((time / 200) * (freqs[i % freqs.length] || 0)) / 128;
+      (Math.min(time / 200, .8) * (freqs[i % freqs.length] || 0)) / 128;
     vertex.multiplyScalar(distance);
   });
   mesh.geometry.verticesNeedUpdate = true;
@@ -171,7 +171,7 @@ function App() {
       renderer.domElement.id = "fark";
 
       var icosahedronGeometry = new THREE.IcosahedronGeometry(
-        analyzer ? 3 : 7,
+        analyzer ? 3 : 9,
         5
       );
       var lambertMaterial = new THREE.MeshLambertMaterial({
