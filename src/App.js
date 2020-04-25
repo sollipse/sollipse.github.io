@@ -41,8 +41,8 @@ const Button = styled.div`
 `;
 
 const NameTitle = styled.div`
-  transition: all 3s ease;
-  transition-delay: 2s;
+  transition: all 1s ease;
+  transition-delay: 0.66s;
   position: absolute;
   font-size: 70px;
 `;
@@ -88,7 +88,7 @@ function makeRoughBall(mesh, freqs = [], time) {
           vertex.y + Math.floor(ttime / 1000) * rf * 8,
           vertex.z + Math.floor(ttime / 1000) * rf * 9
         ) +
-      (Math.min(time / 200, .8) * (freqs[i % freqs.length] || 0)) / 128;
+      (Math.min(time / 200, 0.8) * (freqs[i % freqs.length] || 0)) / 128;
     vertex.multiplyScalar(distance);
   });
   mesh.geometry.verticesNeedUpdate = true;
