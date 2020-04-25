@@ -99,7 +99,7 @@ function App() {
   let [analyzer, setAnalyzer] = useState();
   let [ctx, setCtx] = useState();
   let [freqs, setFreqs] = useState(new Uint8Array(1024));
-  let [loading, setLoading] = useState(browser !== "Firefox");
+  let [loading, setLoading] = useState(true);
   let [isPlaying, setPlaying] = useState(false);
   let [source, setSource] = useState();
   useEffect(() => {
@@ -241,7 +241,8 @@ function App() {
             } else {
               document.getElementById("foo").play();
             }
-            document.getElementById("fark").remove();
+            document.getElementById("fark") &&
+              document.getElementById("fark").remove();
             cancelAnimationFrame(animationId);
             setPlaying(true);
           }
@@ -289,13 +290,19 @@ function App() {
               window.woopra.track("play");
             }
             if (isPlaying === false) {
-              document.getElementById("fark").remove();
+              document.getElementById("fark") &&
+                document.getElementById("fark").remove();
               cancelAnimationFrame(animationId);
               setPlaying(true);
             }
           }}
           onPause={() => setPlaying(false)}
           onCanPlayThrough={() => {
+            if (browser !== "Safari") {
+              setLoading(false);
+            }
+          }}
+          onCanPlay={() => {
             if (browser !== "Safari") {
               setLoading(false);
             }
