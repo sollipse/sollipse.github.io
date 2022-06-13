@@ -29,7 +29,6 @@ const VertLine = styled.div`
   width: 10px;
   background: white;
   border-radius: 5px;
-  position: absolute;
   @media only screen and (max-width: 600px) {
     display: none;
   }

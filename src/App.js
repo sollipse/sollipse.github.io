@@ -3,6 +3,7 @@ import { styled } from "linaria/react";
 import SimplexNoise from "simplex-noise";
 import "./App.css";
 import Bowser from "bowser";
+import WorkScroller from './WorkScroller'
 
 let browser = Bowser.getParser(window.navigator.userAgent).getBrowserName();
 let ContextClass = window.webkitAudioContext || window.AudioContext;
@@ -20,6 +21,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  background: transparent;
   audio {
   }
 `;
@@ -27,24 +29,36 @@ const Container = styled.div`
 const Button = styled.div`
   color: white;
   font-family: Open Sans;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   font-size: 25px;
-  padding: 20px;
+  padding: 10px;
   cursor: pointer;
   color: red;
   transition: all 0.3s ease;
   &:hover {
     color: white;
   }
+  z-index: 2;
+`;
+
+
+const BlackRow = styled.div`
+  position: fixed;
+  background: rgba(0,0,0,.9);
+  width: 100%;
+  height: 80px;
+  top: 0;
+  z-index: 1;
 `;
 
 const NameTitle = styled.div`
   transition: all 1s ease;
   transition-delay: 0.66s;
-  position: absolute;
+  position: relative;
   font-size: 70px;
+  background: transparent;
 `;
 
 const Description = styled.div`
@@ -59,6 +73,21 @@ const Row = styled.div`
   display: flex;
   flex-direction: "row";
   justify-content: space-between;
+  width: 100%;
+`;
+
+const ScrollContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+`;
+
+const ScrollContainerInner = styled.div`
+  position: relative !important;
+  transition: background .3s ease;
+  background: ${p => p.scrolling ? 'rgba(0,0,0,.75)' : 'transparent'};
 `;
 
 const Link = styled.a`
@@ -219,6 +248,7 @@ function App() {
 
   return (
     <Container className="App" id="App">
+      <BlackRow />
       <Button
         id="fee"
         onClick={() => {
@@ -248,7 +278,7 @@ function App() {
           }
         }}
       >
-        <Row style={{ color: "white", alignItems: "center", fontSize: 32 }}>
+        <Row style={{ color: "white", alignItems: "center", fontSize: 30 }}>
           <img
             style={{
               marginRight: 10,
@@ -271,6 +301,9 @@ function App() {
           </div>
         </Row>
       </Button>
+      <Button style={{right: 0, left: 'inherit', marginTop: 5, marginRight: 18,textDecoration: 'none'}}>
+        <Link href="#/about">about</Link>
+      </Button>
       <NameTitle
         style={{
           opacity: !loading ? 1 : 0,
@@ -280,8 +313,6 @@ function App() {
         paul kang
         <Description>software engineer</Description>
         <Row>
-          <Link href="#/work">work</Link>
-          <Link href="#/about">about</Link>
         </Row>
         <div style={{ height: 23 }} />
         <audio
@@ -321,6 +352,13 @@ function App() {
           ></source>
         </audio>
       </NameTitle>
+      <ScrollContainer>
+      <ScrollContainerInner scrolling={window.scrollY > 0}>
+        <div style={{height: '96vh'}}/>
+        <WorkScroller/>
+        <div style={{height: '30vh'}}/>
+      </ScrollContainerInner>
+      </ScrollContainer>
     </Container>
   );
 }

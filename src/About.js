@@ -4,6 +4,7 @@ const Container = styled.div`
   color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   opacity: 0;
   animation: fadeIn 1s ease forwards !important;
@@ -23,30 +24,32 @@ const Container = styled.div`
 
 const TextContainer = styled.div`
   max-width: 1000px;
-  width: 100%;
   padding: 0px 30px;
 `;
 
 const SectionTitle = styled.h3`
   font-family: Oxanium;
-  font-size: 60px;
+  font-size: 40px !important;
   color: red;
   @media only screen and (max-width: 600px) {
-    font-size: 40px;
+    font-size: 20px;
   }
+  line-height: .5em !important;
 `;
 
 const Paragraph = styled.p`
+  text-align: justify;
   font-family: Open Sans;
   line-height: 1.6em;
-  font-size: 25px;
+  max-width: 500px;
+  font-size: 17px;
   margin-top: -30px;
   margin-left: 5px;
   a {
     color: red;
   }
   @media only screen and (max-width: 600px) {
-    font-size: 20px;
+    font-size: 18px;
     a {
       margin: 0 !important;
     }
@@ -54,17 +57,16 @@ const Paragraph = styled.p`
 `;
 
 const Image = styled.img`
-  margin-bottom: 20px;
   width: 100%;
-  max-width: 200px;
-  border-radius: 100%;
-  margin-right: 30px;
-  border: 6px solid red;
-  float: left;
-  @media only screen and (max-width: 600px) {
-    max-width: 100%;
+  margin-top: 20px;
+  transition: all .3s ease !important;
+  opacity: ${(p) => (p.loaded ? 1 : 0)} !important;
+  &:hover {
+    transform: scale(1.1);
   }
-  opacity: ${(p) => (p.loaded ? 1 : 0)};
+  width: 300px;
+  margin-top: -10px;
+  margin-left: -22px;
 `;
 
 const Row = styled.div`
@@ -79,7 +81,7 @@ const Button = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 32px;
+  font-size: 30px;
   padding: 20px;
   cursor: pointer;
   color: red;
@@ -88,6 +90,24 @@ const Button = styled.div`
     color: white;
   }
 `;
+
+const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`
+
+const Circle = styled.div`
+  border-radius: 100%;
+  overflow: hidden;
+  height: 250px;
+  width: 250px;
+  transition: all .5s ease;
+`
+
+
 
 export default () => {
   let [loaded, setLoaded] = useState(false);
@@ -99,18 +119,22 @@ export default () => {
       <TextContainer>
         <div style={{ height: 60 }}></div>
 
-        <SectionTitle>Biography</SectionTitle>
         <Paragraph>
           {!loaded && (
             <div style={{ width: 200, height: 200, float: "left" }} />
           )}
+          <ImgContainer>
+          <Circle>
           <Image
             onLoad={() => setLoaded(true)}
             {...{ loaded }}
-            src="https://pk-resume.s3-us-west-2.amazonaws.com/27892933_423327414762672_6560785457737629696_n.jpg"
+            src="https://pk-resume.s3.us-west-2.amazonaws.com/face.jpg"
           />
+          </Circle>
+          <SectionTitle>/about</SectionTitle>
+          </ImgContainer>
           <b>I'm Paul</b>, your friendly neighborhood front-end engineer. For
-          the past six years, I've worked in the field of Computer Vision to
+          the past eight years, I've worked in the field of Computer Vision to
           make complex Machine Learning concepts accessible to everyone.
         </Paragraph>
         <br></br>
@@ -157,13 +181,13 @@ export default () => {
           <Row>
             <div>
               Email:{"    "}
-              <a style={{ marginLeft: 48 }} href="mailto:paulkang@amazon.com">
+              <a style={{ marginLeft: 29 }} href="mailto:paulkang@amazon.com">
                 solipsistic@berkeley.edu
               </a>
             </div>
             <div>
               Github:{" "}
-              <a style={{ marginLeft: 32 }} href="https://github.com/sollipse">
+              <a style={{ marginLeft: 19 }} href="https://github.com/sollipse">
                 sollipse
               </a>
             </div>
@@ -171,7 +195,7 @@ export default () => {
             <div>
               LinkedIn:{" "}
               <a
-                style={{ marginLeft: 10 }}
+                style={{ marginLeft: 5 }}
                 href="https://www.linkedin.com/in/paul-kang-67a75494/"
               >
                 Paul Kang
