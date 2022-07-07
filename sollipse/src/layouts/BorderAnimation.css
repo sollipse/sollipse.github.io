@@ -1,0 +1,59 @@
+@keyframes drawborder {
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+.draw {
+	background: none;
+	border: 0;
+
+	color: white;
+	font-size: inherit;
+	font-weight: 700;
+
+	position: relative;
+	vertical-align: middle;
+}
+
+.draw:before {
+	box-sizing: inherit;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.draw:after {
+	box-sizing: inherit;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.draw:before {
+	top: 0;
+	left: 0;
+	transform-origin: center;
+}
+.draw:after {
+	top: 0;
+	left: 0;
+	transform-origin: center;
+}
+
+.draw:before {
+	border-top: 3px solid white;
+	border-bottom: 3px solid white;
+	transform: scale3d(0, 1, 1);
+	animation: drawborder 0.5s linear forwards;
+}
+
+.draw:after {
+	border-left: 3px solid white;
+	border-right: 3px solid white;
+	transform: scale3d(1, 0, 1);
+	animation: drawborder 0.5s linear forwards;
+}
