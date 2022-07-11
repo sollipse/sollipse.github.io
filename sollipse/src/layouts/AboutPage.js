@@ -25,53 +25,42 @@ export default function AboutPage() {
 				style={{ background: "rgba(0,0,0,.88)" }}
 				className="draw columns-1 top-20 relative rounded-[12px] md:w-3/5 shadow-md md:flex-row md:max-w-xl text-white"
 			>
-				<motion.span
-					style={{
-						fontFamily: "Oxanium",
-						left: "-270px",
-						right: "0px",
-					}}
-					animate={{
-						opacity: 1,
-						right: "0px",
-					}}
-					initial={{
-						opacity: 0,
-						right: "-40px",
-					}}
-					transition={{ duration: 1 }}
-					className="text-red -top-12 text-4xl absolute font-semibold"
-				>
-					paul<span style={{ color: "red" }}></span>
-				</motion.span>
-				<motion.div
-					animate={{
-						opacity: 1,
-						left: "0px",
-					}}
-					initial={{
-						opacity: 0,
-						left: "-40px",
-					}}
-					transition={{ duration: 1 }}
-					style={{
-						fontFamily: "Oxanium",
-						textAlign: "center",
-						left: "0px",
-						right: "-270px",
-					}}
-					className="-top-12 absolute text-4xl top-3 font-semibold"
-				>
-					<span style={{ color: "red" }}></span>kang
-				</motion.div>
+				<div className="absolute -top-12 w-full flex justify-center items-center">
+					<motion.span
+						style={{
+							fontFamily: "Oxanium",
+							left: "0px",
+							right: "0px",
+						}}
+						animate={{
+							opacity: [0, 1],
+							x: [-60, -90],
+						}}
+						transition={{ duration: 1 }}
+						className="text-red text-4xl w-fit font-semibold"
+					>
+						paul<span style={{ color: "red" }}></span>
+					</motion.span>
+					<motion.span
+						animate={{
+							opacity: [0, 1],
+							x: [70, 97],
+							y: [60, 60],
+						}}
+						transition={{ duration: 1 }}
+						style={{
+							fontFamily: "Oxanium",
+							textAlign: "center",
+							right: "0px",
+						}}
+						className="-top-12 text-4xl top-3 font-semibold w-fit"
+					>
+						<span style={{ color: "red" }}></span>kang
+					</motion.span>
+				</div>
+
 				<div className="absolute w-full flex justify-center -top-24">
 					<motion.img
-						animate={{
-							marginBottom: 0,
-						}}
-						initial={{
-							marginBottom: -100,
-						}}
 						transition={{ duration: 1 }}
 						className="border-4 border-red left-0 top-0 right-0 bottom-0 w-44 rounded-full overflow-hidden shadow"
 						src="https://pk-resume.s3.us-west-2.amazonaws.com/face.jpg"
@@ -79,10 +68,7 @@ export default function AboutPage() {
 					/>
 				</div>
 
-				<div
-					className="flex h-100 flex-col p-8 pt-4 leading-normal text-center"
-					style={{ height: 300 }}
-				>
+				<div className="flex flex-col p-8 pt-4 leading-normal text-center">
 					<h6
 						style={{
 							textAlign: "left",
@@ -94,7 +80,7 @@ export default function AboutPage() {
 					</h6>
 					<p
 						style={{ fontFamily: "Open Sans" }}
-						className="text-white text-l text-white tracking-normal leading-7 text-left"
+						className="text-white text-l text-white tracking-normal font-normal leading-7 text-left"
 					>
 						I'm Paul - your friendly neighborhood frontend engineer.
 						I've spent the past decade working on interesting
@@ -102,11 +88,15 @@ export default function AboutPage() {
 						patents for AWS Computer Vision.
 						<br />
 						<br />
-						I'm currently a senior contributor @
-						<a href="https://www.metacareers.com/">
-							<b style={{ textDecoration: "underline" }}>
-								Meta Commerce
-							</b>
+						I'm currently a senior contributor{" "}
+						<a
+							href="https://www.metacareers.com/"
+							style={{
+								fontFamily: "Oxanium",
+								fontWeight: "bold",
+							}}
+						>
+							<b style={{ textDecoration: "underline" }}>@META</b>
 						</a>{" "}
 						in Seattle, where we're building the future of social
 						commerce.

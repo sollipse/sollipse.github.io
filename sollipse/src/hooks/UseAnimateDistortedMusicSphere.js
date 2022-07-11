@@ -32,7 +32,6 @@ export default function useAnimateDistoredMusicSphere(
 
 	const animate = useCallback(() => {
 		if (!audioElement) return;
-		cancelAnimationFrame(animationID);
 		setAnimationID(requestAnimationFrame(animate));
 		group.rotation.y += 0.003;
 		let currentTime = audioElement.currentTime;
@@ -44,13 +43,12 @@ export default function useAnimateDistoredMusicSphere(
 			DistortSphere(sphere, freqs.current, currentTime);
 		}
 		renderer.render(scene, camera);
-	}, [analyzer, audioElement, isPlaying]);
+	}, [analyzer, audioElement]);
 
 	useEffect(() => {
 		let disposer = null;
 		if (window.THREE && canvasRef && canvasRef.current && audioElement) {
 			disposer = scene;
-
 			animate();
 		}
 		return () => {

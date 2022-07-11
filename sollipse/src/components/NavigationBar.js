@@ -4,13 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 export default function NavigationBar() {
 	const [showMobileMenu, toggleMobileMenu] = useState(false);
 	const { pathname } = useLocation();
-	console.log(pathname);
 	return (
 		<motion.nav
 			animate={{
 				opacity: 1,
 				x: 0,
 			}}
+			style={{ zIndex: 100 }}
 			initial={{ opacity: 0, x: -5 }}
 			transition={{ duration: 1 }}
 		>
@@ -68,7 +68,10 @@ export default function NavigationBar() {
 							</div>
 						</div>
 						<div className="hidden sm:block">
-							<div className="flex">
+							<div
+								className="flex"
+								style={{ background: "rgba(0,0,0,.9)" }}
+							>
 								<Link
 									style={{
 										fontFamily: "Oxanium",
@@ -82,7 +85,10 @@ export default function NavigationBar() {
 							</div>
 						</div>
 						<div className="hidden sm:block">
-							<div className="flex">
+							<div
+								className="flex"
+								style={{ background: "rgba(0,0,0,.9)" }}
+							>
 								<Link
 									style={{
 										fontFamily: "Oxanium",
@@ -97,7 +103,10 @@ export default function NavigationBar() {
 						</div>
 
 						<div className="hidden sm:block">
-							<div className="flex">
+							<div
+								className="flex"
+								style={{ background: "rgba(0,0,0,.9)" }}
+							>
 								<Link
 									style={{
 										fontFamily: "Oxanium",
@@ -120,18 +129,57 @@ export default function NavigationBar() {
 						opacity: 1,
 						x: 0,
 						height: "auto",
+						background: "rgba(0,0,0,.9)",
+						zIndex: 100,
 					}}
-					initial={{ opacity: 0, y: -10, height: 0 }}
+					initial={{
+						opacity: 0,
+						y: -10,
+						height: 0,
+						background: "rgba(0,0,0,0)",
+					}}
 					transition={{ duration: 0.3 }}
-					className="sm:hidden"
+					className="fixed w-full sm:hidden"
 					id="mobile-menu"
+					onClick={() => toggleMobileMenu(false)}
 				>
 					<div className="px-2 pt-2 pb-3 space-y-1">
 						<a
+							style={{
+								fontFamily: "Oxanium",
+								fontWeight: 900,
+								fontSize: 20,
+							}}
+							href="#/about"
+							className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+						>
+							/about
+						</a>
+					</div>
+					<div className="px-2 pt-2 pb-3 space-y-1">
+						<a
+							style={{
+								fontFamily: "Oxanium",
+								fontWeight: 900,
+								fontSize: 20,
+							}}
+							href="#/contact"
+							className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+						>
+							/contact
+						</a>
+					</div>
+					<div className="px-2 pt-2 pb-3 space-y-1">
+						<a
+							style={{
+								fontFamily: "Oxanium",
+								fontWeight: 900,
+								fontSize: 20,
+							}}
 							href="#"
 							className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
 						>
-							About me
+							/home
 						</a>
 					</div>
 				</motion.div>

@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-export default function DevIcon({ iconName, stagger }) {
+export default function DevIcon({ iconName, stagger, colorOverride }) {
 	return (
 		<motion.i
 			animate={{
-				color: "rgb(255,255,255)",
+				color: colorOverride ?? "rgb(255,255,255)",
 				transform: "translateY(0px)",
 			}}
 			initial={{ color: "rgb(30,30,30)", transform: "translateY(5px)" }}
