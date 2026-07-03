@@ -1,1 +1,279 @@
-<!doctype html><html lang="en"><head><link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"/><script>!function(){var o,t,e,n=window,r=document,c=arguments,a="script",i=["config","track","identify","visit","push","call","trackForm","trackClick"],s=function(){var o,t=this;for(t._e=[],o=0;i.length>o;o++)!function(o){t[o]=function(){return t._e.push([o].concat(Array.prototype.slice.call(arguments,0))),t}}(i[o])};for(n._w=n._w||{},o=0;c.length>o;o++)n._w[c[o]]=n[c[o]]=n[c[o]]||new s;(t=r.createElement(a)).async=1,t.src="//static.woopra.com/js/w.js",(e=r.getElementsByTagName(a)[0]).parentNode.insertBefore(t,e)}("woopra"),woopra.config({domain:"sollipse.github.io"}),woopra.track()</script><script defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Paul Kang Resume Site"/><link rel="apple-touch-icon" href="/logo192.png"/><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title>React App</title><script defer="defer" src="/static/js/main.e6ed2d9f.js"></script><link href="/static/css/main.c377f902.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyo Kang — Builder</title>
+  <meta name="description" content="Hyo Kang — builder. A decade making machine learning accessible to everyone: AWS Rekognition, Textract, Custom Labels, Facebook Shops, Instagram Live Shopping.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hyo Kang — Builder">
+  <meta property="og:description" content="A decade making machine learning accessible — AWS AI · Meta Commerce · Facebook Browser.">
+  <meta property="og:url" content="https://sollipse.github.io/">
+  <meta property="og:image" content="https://sollipse.github.io/assets/img/face-800.jpg">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preload" href="/assets/fonts/SpaceGrotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/main.css">
+
+  <!-- Evict the old create-react-app service worker + its caches. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {});
+    }
+    if (window.caches) { caches.keys().then(ks => ks.forEach(k => caches.delete(k))).catch(() => {}); }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hyo Kang",
+    "jobTitle": "Head of AI Developer Innovation, Facebook Browser",
+    "email": "mailto:solipsistic@berkeley.edu",
+    "alumniOf": "University of California, Berkeley",
+    "url": "https://sollipse.github.io/",
+    "image": "https://sollipse.github.io/assets/img/face-800.jpg",
+    "sameAs": [
+      "https://github.com/sollipse",
+      "https://www.linkedin.com/in/paul-kang-67a75494/"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#about">Skip to content</a>
+
+  <!-- Audio-reactive particle field -->
+  <canvas id="field" aria-hidden="true"></canvas>
+
+  <!-- HUD bars — transparent over the hero, glassy once scrolling -->
+  <header class="hud" role="banner">
+    <div class="hud-top">
+      <div class="hud-tl mono">HYO&nbsp;KANG</div>
+      <nav class="hud-tr mono" aria-label="Sections">
+        <a href="#about">ABOUT</a>
+        <a href="#work">WORK</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+    <div class="hud-bottom">
+      <div class="hud-bl mono">
+        <span id="track" class="track">
+          <span class="track-state" id="track-state">PAUSED</span> — MAX COOPER, RESYNTHESIS
+        </span>
+      </div>
+      <div class="hud-br">
+        <button id="sound" class="sound mono" type="button" aria-pressed="false"
+                aria-label="Play music and enable the audio visualizer">
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="sound-label">SOUND&nbsp;ON</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-inner" id="hero-inner">
+        <p class="eyebrow mono reveal">BUILDER</p>
+        <h1 class="name">
+          <span class="reveal thin">HYO</span>
+          <span class="reveal bold">KANG</span>
+        </h1>
+        <p class="hero-line reveal" data-words>
+          A decade making machine learning accessible —
+          <span class="orgs"><b class="org-aws">AWS&nbsp;AI</b> · <b class="org-meta">Meta&nbsp;Commerce</b> · <b class="org-fb">Facebook&nbsp;Browser</b></span>
+        </p>
+        <div class="scroll-cue mono" aria-hidden="true"><span>SCROLL</span><i></i></div>
+      </div>
+    </section>
+
+    <!-- 01 ABOUT -->
+    <section class="sec" id="about" aria-labelledby="about-h">
+      <div class="sec-head reveal">
+        <span class="idx mono">01</span>
+        <h2 id="about-h" class="label mono">ABOUT</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p class="lede reveal">
+            I'm Hyo — your friendly neighborhood engineer. For the past decade I've
+            worked to make complex machine learning accessible to everyone: first
+            building AWS's computer-vision services, then Meta's commerce platforms,
+            now leading AI developer innovation for Facebook's browser.
+          </p>
+          <p class="lede dim reveal">
+            The throughline: AI is only worth building when the right people can use
+            it — for the right reasons.
+          </p>
+        </div>
+        <figure class="portrait reveal">
+          <img src="/assets/img/face-800.jpg" alt="Portrait of Hyo Kang" width="800" height="800" loading="lazy">
+          <figcaption class="mono">HYO, IRL</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 02 WORK -->
+    <section class="sec" id="work" aria-labelledby="work-h">
+      <div class="sec-head reveal">
+        <span class="idx mono">02</span>
+        <h2 id="work-h" class="label mono">SELECTED WORK</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+
+      <!-- Current role — featured -->
+      <section class="tl-group" aria-label="Meta — Facebook Browser, current role">
+        <header class="tl-org">
+          <span class="tl-org-name">META</span><span class="tl-org-loc mono">/ FACEBOOK BROWSER</span>
+          <span class="tl-org-now mono accent">CURRENT</span>
+        </header>
+      <article class="feature reveal">
+        <h3 class="feature-title">Head of AI Developer Innovation</h3>
+        <p class="feature-copy">
+          Leading the organization reinventing how AI ships inside Facebook's
+          browser — rebuilding developer velocity as a discipline.
+        </p>
+        <dl class="stats">
+          <div class="stat"><dt class="mono">ORG</dt><dd><span class="num">300</span><span class="unit">people</span></dd></div>
+          <div class="stat"><dt class="mono">COMPUTE RECOVERED</dt><dd><span class="num">$10M+</span><span class="unit">wasted spend</span></dd></div>
+          <div class="stat"><dt class="mono">FEATURE VELOCITY</dt><dd><span class="num">5×</span><span class="unit">increase</span></dd></div>
+        </dl>
+      </article>
+      </section>
+
+      <!-- Timeline -->
+      <div class="tl">
+        <section class="tl-group" aria-label="Meta — Commerce">
+          <header class="tl-org">
+            <span class="tl-org-name">META</span><span class="tl-org-loc mono">/ COMMERCE — MENLO PARK</span>
+          </header>
+          <ul class="tl-list">
+            <li class="tl-row">
+              <span class="node" aria-hidden="true"></span>
+              <div class="row row-video" data-video="XD0vrmiPvls" tabindex="0" role="button"
+                   aria-expanded="false" aria-label="Play launch video — Instagram Live Shopping">
+                <span class="row-year mono">2021</span>
+                <span class="row-body">
+                  <span class="row-title">Instagram Live Shopping</span>
+                  <span class="row-copy">Live commerce at Instagram scale — shop the stream in real time.</span>
+                </span>
+                <span class="row-link mono">WATCH<i class="arrow" aria-hidden="true">↗</i></span>
+                <div class="row-media"><div class="row-media-inner"><div class="row-media-frame"></div></div></div>
+              </div>
+            </li>
+            <li class="tl-row">
+              <span class="node" aria-hidden="true"></span>
+              <div class="row row-video" data-video="ZK-UNVKvxoU" tabindex="0" role="button"
+                   aria-expanded="false" aria-label="Play launch video — Facebook Shops">
+                <span class="row-year mono">2020</span>
+                <span class="row-body">
+                  <span class="row-title">Facebook Shops</span>
+                  <span class="row-copy">Storefronts for millions of small businesses, launched mid-pandemic.</span>
+                </span>
+                <span class="row-link mono">WATCH<i class="arrow" aria-hidden="true">↗</i></span>
+                <div class="row-media"><div class="row-media-inner"><div class="row-media-frame"></div></div></div>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="tl-group" aria-label="AWS — AI">
+          <header class="tl-org">
+            <span class="tl-org-name">AWS</span><span class="tl-org-loc mono">/ AI — SEATTLE</span>
+          </header>
+          <ul class="tl-list">
+            <li class="tl-row">
+              <span class="node" aria-hidden="true"></span>
+              <div class="row row-video" data-video="5uNs7JFY9Tk" tabindex="0" role="button"
+                   aria-expanded="false" aria-label="Play launch video — Rekognition Custom Labels">
+                <span class="row-year mono">2019</span>
+                <span class="row-body">
+                  <span class="row-title">Rekognition Custom Labels</span>
+                  <span class="row-copy">Custom vision models in hours, no ML degree required — built for agriculture, fashion, construction.</span>
+                </span>
+                <span class="row-link mono">WATCH<i class="arrow" aria-hidden="true">↗</i></span>
+                <div class="row-media"><div class="row-media-inner"><div class="row-media-frame"></div></div></div>
+              </div>
+            </li>
+            <li class="tl-row">
+              <span class="node" aria-hidden="true"></span>
+              <a class="row" href="https://venturebeat.com/2019/05/29/aws-launches-textract-machine-learning-for-text-and-data-extraction/" target="_blank" rel="noopener">
+                <span class="row-year mono">2019</span>
+                <span class="row-body">
+                  <span class="row-title">Textract</span>
+                  <span class="row-copy">Document AI used by the US government, Change Healthcare, and the Washington Post.</span>
+                </span>
+                <span class="row-link mono">PRESS<i class="arrow" aria-hidden="true">↗</i></span>
+              </a>
+            </li>
+            <li class="tl-row">
+              <span class="node" aria-hidden="true"></span>
+              <a class="row" href="https://www.fastcompany.com/90403658/amazons-ai-is-helping-companies-battle-sleazy-user-generated-content" target="_blank" rel="noopener">
+                <span class="row-year mono">2018</span>
+                <span class="row-body">
+                  <span class="row-title">Rekognition</span>
+                  <span class="row-copy">Identity detection that helps Thorn fight child exploitation and keeps public platforms safe.</span>
+                </span>
+                <span class="row-link mono">PRESS<i class="arrow" aria-hidden="true">↗</i></span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- 03 PRINCIPLE -->
+    <section class="sec" id="principle" aria-labelledby="principle-h">
+      <div class="sec-head reveal">
+        <span class="idx mono">03</span>
+        <h2 id="principle-h" class="label mono">PRINCIPLE</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <blockquote class="quote reveal">
+        <p>
+          &ldquo;We know the past but cannot control it.
+          We control the future but cannot know&nbsp;it.&rdquo;
+        </p>
+        <cite class="quote-cite mono">— CLAUDE SHANNON</cite>
+      </blockquote>
+    </section>
+
+    <!-- 04 CONTACT -->
+    <section class="sec" id="contact" aria-labelledby="contact-h">
+      <div class="sec-head reveal">
+        <span class="idx mono">04</span>
+        <h2 id="contact-h" class="label mono">CONTACT</h2>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+      <p class="contact-lede reveal">Let's build something worth using.</p>
+      <a class="email reveal" href="mailto:solipsistic@berkeley.edu">solipsistic@berkeley.edu</a>
+      <ul class="links mono reveal">
+        <li><a href="https://github.com/sollipse" target="_blank" rel="noopener">GITHUB<i class="arrow" aria-hidden="true">↗</i></a></li>
+        <li><a href="https://www.linkedin.com/in/paul-kang-67a75494/" target="_blank" rel="noopener">LINKEDIN<i class="arrow" aria-hidden="true">↗</i></a></li>
+        <li><a href="/assets/resume.pdf" target="_blank" rel="noopener">RÉSUMÉ<i class="arrow" aria-hidden="true">↗</i></a></li>
+      </ul>
+    </section>
+
+    <footer class="foot mono">
+      <span>© 2026 HYO KANG</span>
+      <span class="dim">HAND-BUILT — VANILLA JS + THREE.JS, NO FRAMEWORK</span>
+      <span class="dim">AUDIO — MAX COOPER, RESYNTHESIS</span>
+    </footer>
+  </main>
+
+  <audio id="audio" src="/assets/audio/resynthesis.mp3" preload="none" loop></audio>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

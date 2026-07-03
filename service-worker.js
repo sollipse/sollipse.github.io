@@ -1,39 +1,25 @@
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
+/* Self-destructing service worker.
+   The previous site (create-react-app) registered a precaching worker at this
+   exact path; returning visitors would be served the stale build forever.
+   This replacement installs over it, wipes every cache, unregisters itself,
+   and reloads its clients onto the live network. */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+self.addEventListener("install", () => self.skipWaiting());
 
-importScripts(
-  "/precache-manifest.8ad6665e35d26ee36d6bc35110a37487.js"
-);
-
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
-
-workbox.core.clientsClaim();
-
-/**
- * The workboxSW.precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
-
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/index.html"), {
-  
-  blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      try {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((k) => caches.delete(k)));
+      } catch (e) {}
+      try {
+        await self.registration.unregister();
+      } catch (e) {}
+      const clients = await self.clients.matchAll({ type: "window" });
+      for (const c of clients) {
+        try { c.navigate(c.url); } catch (e) {}
+      }
+    })()
+  );
 });
