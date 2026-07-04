@@ -67,14 +67,20 @@
     <div class="hud-bottom">
       <div class="hud-bl mono">
         <span id="track" class="track">
-          <span class="track-state" id="track-state">PAUSED</span> — MAX COOPER, RESYNTHESIS
+          <span class="track-state" id="track-state">PAUSED</span> —
+          <button id="track-prev" class="track-arrow mono" type="button"
+                  title="Previous track" aria-label="Previous track">‹</button><button
+                  id="track-title" class="track-title mono" type="button"
+                  title="Switch track" aria-label="Switch to the next track">MAX COOPER, RESYNTHESIS</button><button
+                  id="track-next" class="track-arrow mono" type="button"
+                  title="Next track" aria-label="Next track">›</button>
         </span>
       </div>
       <div class="hud-br">
         <button id="sound" class="sound mono" type="button" aria-pressed="false"
                 aria-label="Play music and enable the audio visualizer">
-          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
           <span class="sound-label">SOUND&nbsp;ON</span>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
         </button>
       </div>
     </div>
@@ -263,11 +269,11 @@
 
     <footer class="foot mono">
       <span>© 2026 HYO KANG</span>
-      <span class="dim">AUDIO — MAX COOPER, RESYNTHESIS</span>
+      <span class="dim" id="foot-audio">AUDIO — MAX COOPER, RESYNTHESIS</span>
     </footer>
   </main>
 
-  <audio id="audio" src="/assets/audio/resynthesis.mp3" preload="none" loop></audio>
+  <audio id="audio" src="/assets/audio/resynthesis.mp3" preload="none"></audio>
 
   <script type="module" src="/js/main.js"></script>
 </body>

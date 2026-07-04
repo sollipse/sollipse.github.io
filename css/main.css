@@ -141,6 +141,22 @@ html.scrolled .hud-bottom {
 .track-state { color: var(--faint); transition: color 0.3s; }
 .track.live .track-state { color: var(--accent); }
 
+/* track title doubles as a next-track button; ‹ › arrows flank it */
+.track-title {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font: inherit; letter-spacing: inherit;
+  transition: color 0.25s;
+}
+.track-title:hover, .track-title:focus-visible { color: var(--ink); }
+
+.track-arrow {
+  background: none; border: 0; cursor: pointer;
+  color: var(--faint); font: inherit; font-size: 13px; line-height: 1;
+  padding: 8px 7px; margin: -8px 0;
+  transition: color 0.25s;
+}
+.track-arrow:hover, .track-arrow:focus-visible { color: var(--accent); }
+
 /* sound toggle */
 
 .sound {

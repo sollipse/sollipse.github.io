@@ -135,12 +135,22 @@ document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
 /* ——— audio engine ——— */
 
+// playlist — tracks play in sequence and wrap around; clicking the
+// track title in the HUD skips ahead. To add a song, drop the mp3 in
+// /assets/audio and append a line here.
+const PLAYLIST = [
+  { title: "MAX COOPER, RESYNTHESIS", src: "/assets/audio/resynthesis.mp3" },
+  { title: "MAX COOPER, SUPINE", src: "/assets/audio/supine.mp3" },
+];
+
 const BANDS = field ? field.bandCount : 24;
 const audioEl = $("#audio");
 const soundBtn = $("#sound");
 const soundLabel = soundBtn.querySelector(".sound-label");
 const trackLine = $("#track");
 const trackState = $("#track-state");
+const trackTitle = $("#track-title");
+const footAudio = $("#foot-audio");
 
 let ctx = null, analyser = null, gain = null;
 let freqData = null;
@@ -258,6 +268,36 @@ async function toggleSound() {
 }
 
 soundBtn.addEventListener("click", toggleSound);
+
+/* ——— playlist: sequence + manual switch ——— */
+
+let trackIndex = 0;
+
+function loadTrack(i) {
+  trackIndex = ((i % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
+  const t = PLAYLIST[trackIndex];
+  audioEl.src = t.src;
+  trackTitle.textContent = t.title;
+  if (footAudio) footAudio.textContent = `AUDIO — ${t.title}`;
+}
+
+async function switchTrack(i) {
+  const wasPlaying = playing;
+  loadTrack(i);
+  if (wasPlaying) {
+    try {
+      await audioEl.play();
+    } catch (e) {
+      toggleSound(); // fetch failed or playback refused — settle into paused
+    }
+  }
+}
+
+audioEl.addEventListener("ended", () => switchTrack(trackIndex + 1));
+trackTitle.addEventListener("click", () => switchTrack(trackIndex + 1));
+$("#track-next").addEventListener("click", () => switchTrack(trackIndex + 1));
+$("#track-prev").addEventListener("click", () => switchTrack(trackIndex - 1));
+loadTrack(0);
 
 // test hook: ?fakeaudio drives the field with synthetic bands (no sound)
 if (field && location.search.includes("fakeaudio")) {
