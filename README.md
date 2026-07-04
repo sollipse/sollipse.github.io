@@ -2,8 +2,8 @@
 
 Hyo Kang — Builder. https://sollipse.github.io/
 
-Hand-built: one HTML file, one stylesheet, vanilla ES modules + three.js. No
-framework, no build step — what's in the repo is what ships.
+One HTML file, one stylesheet, vanilla ES modules + three.js. No framework,
+no build step — what's in the repo is what ships.
 
 - `js/field.js` — audio-reactive particle ocean (~100k GPU-displaced points,
   custom vertex/fragment shaders; FFT bands mapped across the field's depth).
