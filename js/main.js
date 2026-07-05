@@ -1,12 +1,20 @@
 /* main.js — UI, scroll reveals, audio engine
    HYO KANG — sollipse.github.io */
 
+const PARAMS = new URLSearchParams(location.search);
+
 // two field treatments — the wave-field ocean is the default;
 // ?blob switches to the fibonacci camel-hump experiment
-const FIELD_MODULE = new URLSearchParams(location.search).has("blob")
-  ? "./blob.js"
-  : "./field.js";
+const FIELD_MODULE = PARAMS.has("blob") ? "./blob.js" : "./field.js";
 const { createField } = await import(FIELD_MODULE);
+
+/* ——— FX switches — modular experiments ———
+   URL:      ?agc=off       raw spectrum (beat-dominant)
+   console:  fx.agc(false)  — back to the raw spectrum */
+const FX = {
+  agc: true, // per-band auto gain: melody pulls as hard as the kick
+};
+if (PARAMS.get("agc") === "off") FX.agc = false;
 
 const $ = (s) => document.querySelector(s);
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -24,6 +32,11 @@ try {
   field = null;
 }
 if (!field) canvas.style.opacity = "0.5"; // CSS gradient still carries the mood
+
+// live tweaking from the console
+window.fx = {
+  agc(on = true) { FX.agc = !!on; },
+};
 
 
 /* ——— hero: word-by-word blur-in ——— */
@@ -156,6 +169,7 @@ let ctx = null, analyser = null, gain = null;
 let freqData = null;
 const bands = new Float32Array(BANDS);
 const smoothed = new Float32Array(BANDS);
+const agcPeak = new Float32Array(BANDS).fill(0.12); // per-band running peak
 let bandEdges = null;
 let level = 0, lastFrameAt = 0;
 let playing = false;
@@ -196,13 +210,22 @@ function audioFrame() {
   const release = Math.exp(-dt * 3.1);  // ~320ms tau
   const attack = 1 - Math.exp(-dt * 22);
 
+  const agcDecay = Math.exp(-dt / 4); // peaks remember ~4s of music
+
   let sum = 0;
   for (let i = 0; i < BANDS; i++) {
     const a = bandEdges[i], b = Math.max(bandEdges[i + 1], bandEdges[i] + 1);
     let s = 0;
     for (let j = a; j < b; j++) s += freqData[j];
     let v = s / (b - a) / 255;
-    v = Math.pow(v, 1.5) * (0.75 + (i / (BANDS - 1)) * 1.15); // perceptual lift for highs
+    if (FX.agc) {
+      // per-band auto gain: each band rides against its own recent peak, so
+      // pads, melody and texture move the sea as hard as the kick drum does
+      const pk = (agcPeak[i] = Math.max(v, agcPeak[i] * agcDecay));
+      v = Math.pow(v / (pk + 0.1), 1.35) * 0.92;
+    } else {
+      v = Math.pow(v, 1.5) * (0.75 + (i / (BANDS - 1)) * 1.15); // perceptual lift for highs
+    }
     v = Math.min(v, 1);
     // smooth attack, damped exponential release — no jerking back
     smoothed[i] = v > smoothed[i]
@@ -211,7 +234,8 @@ function audioFrame() {
     bands[i] = smoothed[i];
     sum += smoothed[i];
   }
-  level = Math.min((sum / BANDS) * 1.9, 1);
+  // AGC-normalized bands run hotter on average — temper the level sum
+  level = Math.min((sum / BANDS) * (FX.agc ? 1.5 : 1.9), 1);
 
   const bass = (bands[0] + bands[1] + bands[2]) / 3;
   const mid = (bands[9] + bands[11] + bands[13]) / 3;

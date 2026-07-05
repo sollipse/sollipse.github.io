@@ -28,6 +28,8 @@ Useful page hooks:
 - `?fakeaudio` — drives the visualizer with synthetic bands, no sound
 - `?still` — everything revealed, no transitions (screenshots)
 - `?blob` — alternate field treatment (blob.js instead of field.js)
+- `?agc=off` — disable per-band auto gain (raw beat-dominant spectrum)
+- console: `fx.agc(false)` toggles the filter live
 
 Key elements: `#sound` (play/pause toggle), `#track-title` (next-track button),
 `#track-state` (PAUSED / NOW PLAYING), `#foot-audio` (footer credit),
